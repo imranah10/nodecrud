@@ -20,7 +20,7 @@ export const Add = () => {
   const SubmitForm = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/api/create', user);
+      await axios.post('https://nodecrud-mtqo.onrender.com/api/create', user);
       toast.success('User added successfully!');
       // Reset form
       setUser({ name: '', email: '', password: '' });

@@ -22,7 +22,7 @@ export const Edit = () => {
   useEffect(()=>{
     const getOne=async()=>{
       try {
-        const res=await axios.get(`http://localhost:8080/api/getone/${id}`)
+        const res=await axios.get(`https://nodecrud-mtqo.onrender.com/api/getone/${id}`)
         setUsers(res.data)
       } catch (error) {
         console.log(error);
@@ -35,7 +35,7 @@ export const Edit = () => {
 const SubmitForm = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/api/update/${id}`, user);
+      await axios.put(`https://nodecrud-mtqo.onrender.com/api/update/${id}`, user);
       toast.success('User update successfully!');
       // Reset form
       setUsers({ name: '', email: '', password: '' });
