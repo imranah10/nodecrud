@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { MdDelete } from "react-icons/md"
 import { TbEdit } from "react-icons/tb";
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 
 export const GetUser = () => {
@@ -18,9 +19,20 @@ export const GetUser = () => {
    }
    fetchdata()
   },[])
+  const deleteuser=async(userId)=>{
+    try {
+      await axios.delete(`http://localhost:8080/api/delete/${userId}`)
+      setUsers((prevUser)=>prevUser.filter((user)=>user._id!==userId))
+      toast.success('user deleteed successfully')
+    } catch (error) {
+      toast.error('internal server error')
+      
+    }
+  }
   return (
     <>
       <div className="my-10 h-screen bg-gray-50">
+        <h1 className='text-center text-4xl text-red-500 font-bold my-3'>Node Crud Operation</h1>
         
         {/* Centered Add User Button */}
         <div className="flex justify-center">
@@ -51,7 +63,7 @@ export const GetUser = () => {
                 <td className="border border-gray-300 px-4 py-2">{user.name}</td>
                 <td className="border border-gray-300 px-4 py-2">{user.email}</td>
                  <td className="border border-gray-300 px-4 py-2 space-x-2 flex justify-center">
-                  <button className="bg-red-500 cursor-pointer text-white px-3 py-2 rounded hover:bg-red-600 transition text-xl">
+                  <button onClick={()=>deleteuser(user._id)} className="bg-red-500 cursor-pointer text-white px-3 py-2 rounded hover:bg-red-600 transition text-xl">
                     <MdDelete />
                   </button>
                   <Link to={`/edit/`+user._id} className="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600 transition text-xl">
